@@ -95,7 +95,18 @@ mongoose
 
   ///db.createCollection("user")
   ///db.createCollection("post")
-  //db.User.insert({"email":"lan@gmail.com","password":"123","name":"lan","status":"new"})
+  //db.user.insert({"email":"lan@gmail.com","password":"123","name":"lan","status":"new",posts:[]})
   //db.post.insert({"title":"post1","imageUrl":"12321","content":"lanqweqwewq","creator":"ObjectId('5de22e2486ce78f17553be45')"})
   // var o = new ObjectId('5de22e2486ce78f17553be45');
   // db.post.insert({"title":"post1","imageUrl":"12321","content":"lanqweqwewq","creator":o})
+
+
+
+//   var id = new ObjectId("5de5116bb7a9695abe765c9c");
+//   var o = new ObjectId("5de511bdb7a9695abe765c9d");
+
+
+// db.user.update(
+//    { _id: id },
+//    { $push: { posts:o } }
+// )

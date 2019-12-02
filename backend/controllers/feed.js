@@ -7,6 +7,7 @@ const Post = require('../models/post');
 const User = require('../models/user');
 
 exports.getPosts = (req, res, next) => {
+  console.log('getPosts ')
   const currentPage = req.query.page || 1;
   const perPage = 2;
   let totalItems;
@@ -14,6 +15,7 @@ exports.getPosts = (req, res, next) => {
     .countDocuments()
     .then(count => {
       totalItems = count;
+      console.log('getPosts ', totalItems)
       return Post.find()
         .skip((currentPage - 1) * perPage)
         .limit(perPage);
