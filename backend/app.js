@@ -2,7 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'), Admin = mongoose.mongo.Admin;
 const multer = require('multer');
 
 const feedRoutes = require('./routes/feed');
@@ -61,9 +61,41 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/messages?retryWrites=true'
+    // 'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/messages?retryWrites=true'
+    'mongodb://localhost:27017/udemy', { useNewUrlParser: true} ,
+    (error) => {
+      if(error) console.log(error);
+  
+          console.log("connection successful");
+  }
   )
   .then(result => {
     app.listen(8080);
   })
-  .catch(err => console.log(err));
+  .catch(err =>  console.log('err',err));
+
+  const db = mongoose.connection;
+  db.on("error", () => {
+      console.log("> error occurred from the database");
+  });
+  db.once("open", () => {
+      console.log("> successfully opened the database",db.name);
+      new Admin(db.db).listDatabases(function(err, result) {
+        console.log('listDatabases succeeded');
+        // database list stored in result.databases
+        var allDatabases = result.databases; 
+        console.log(result.databases);   
+    });
+  });
+
+  // mongoose.connection.on('error', function (err) {
+  //   console.log(err)
+  //  });
+//"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --version
+
+  ///db.createCollection("user")
+  ///db.createCollection("post")
+  //db.User.insert({"email":"lan@gmail.com","password":"123","name":"lan","status":"new"})
+  //db.post.insert({"title":"post1","imageUrl":"12321","content":"lanqweqwewq","creator":"ObjectId('5de22e2486ce78f17553be45')"})
+  // var o = new ObjectId('5de22e2486ce78f17553be45');
+  // db.post.insert({"title":"post1","imageUrl":"12321","content":"lanqweqwewq","creator":o})
