@@ -97,7 +97,7 @@ class App extends Component {
         this.setAutoLogout(remainingMilliseconds);
       })
       .catch(err => {
-        console.log(err);
+        console.log('err',err);
         this.setState({
           isAuth: false,
           authLoading: false,

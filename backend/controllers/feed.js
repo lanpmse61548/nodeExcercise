@@ -36,6 +36,8 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
+  console.log('create','post')
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error('Validation failed, entered data is incorrect.');
@@ -47,6 +49,7 @@ exports.createPost = (req, res, next) => {
     error.statusCode = 422;
     throw error;
   }
+  console.log('create','post')
   const imageUrl = req.file.path;
   const title = req.body.title;
   const content = req.body.content;
@@ -75,6 +78,7 @@ exports.createPost = (req, res, next) => {
       });
     })
     .catch(err => {
+      console.log('rrrrrrrrrrrrrrreee',err)
       if (!err.statusCode) {
         err.statusCode = 500;
       }

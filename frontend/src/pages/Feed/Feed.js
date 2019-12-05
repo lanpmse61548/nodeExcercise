@@ -27,11 +27,14 @@ class Feed extends Component {
         if (res.status !== 200) {
           throw new Error('Failed to fetch user status.');
         }
-        return res.json();
+        console.log(res.status)
+       // return res.json();
+       this.setState({ status: res.status });
       })
-      .then(resData => {
-        this.setState({ status: resData.status });
-      })
+      // .then(resData => {
+      //   console.log(resData)
+      //   this.setState({ status: resData.status });
+      // })
       .catch(this.catchError);
 
     this.loadPosts();
@@ -133,6 +136,7 @@ class Feed extends Component {
       }
     })
       .then(res => {
+        console.log('http://localhost:8080/feed/post/',res)
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Creating or editing a post failed!');
         }
@@ -212,7 +216,7 @@ class Feed extends Component {
   };
 
   catchError = error => {
-    this.setState({ error: error });
+    this.setState({ error: error },console.log('error reeeee',error));
   };
 
   render() {
